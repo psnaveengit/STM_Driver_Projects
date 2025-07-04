@@ -1,7 +1,6 @@
 
----
 
-# GPIO LED Blink on STM32L4R5ZI-P Using Register-Level (CMSIS) Programming
+# GPIO OUT DRIVER to Blink User LED on STM32L4R5ZI-P (Without HAL)
 
 ## Project Title
 
