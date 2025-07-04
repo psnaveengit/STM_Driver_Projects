@@ -5,32 +5,26 @@
  * Method: CMSIS Register-level (No HAL)
  */
 
-#include "stm32l4r5xx.h"
+#include "gpio.h"
 
-void delay(volatile uint32_t t) {
-    while (t--);
+// Global tick counter
+volatile uint32_t tick = 0;
+
+// Millisecond delay function
+void delay_ms(uint32_t ms) {
+    uint32_t start = tick;
+    while ((tick - start) < ms);
 }
 
 int main(void) {
-    // Enable clock for GPIOB
-    RCC->AHB2ENR |= RCC_AHB2ENR_GPIOBEN;
+    gpio_init();
 
-    // Set PB7 as General Purpose Output
-    GPIOB->MODER &= ~(3U << (7 * 2)); // Clear bits
-    GPIOB->MODER |=  (1U << (7 * 2)); // Set as Output (01)
-
-    // Set Output Type to Push-Pull
-    GPIOB->OTYPER &= ~(1U << 7);
-
-    // Set Output Speed to Low (optional)
-    GPIOB->OSPEEDR &= ~(3U << (7 * 2));
-
-    // No Pull-up / Pull-down
-    GPIOB->PUPDR &= ~(3U << (7 * 2));
+    // Configure SysTick to trigger every 1 ms
+    // SystemCoreClock is defined by CMSIS to match your system (typically 80 MHz)
+    SysTick_Config(SystemCoreClock / 1000);  // 1ms tick
 
     while (1) {
-        // Toggle PB7 (LD2)
-        GPIOB->ODR ^= (1U << 7);
-        delay(500000); // crude delay
+        led_toggle();
+        delay_ms(5000);  // 5000 ms delay
     }
 }
