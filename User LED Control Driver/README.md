@@ -16,13 +16,6 @@ To blink the onboard LD2 (blue) LED connected to PB7 on the STM32L4R5ZI-P Nucleo
 * Development Board: NUCLEO-L4R5ZI-P
 * Onboard LED: LD2 (Blue) connected to GPIO pin PB7
 
-## Development Tools
-
-* STM32CubeIDE
-* ARM GNU toolchain (arm-none-eabi-gcc)
-* Register-level (CMSIS) programming
-* No use of HAL or LL peripheral libraries
-
 ## Project Description
 
 This project demonstrates low-level embedded programming by toggling an onboard user LED using register-level access. The application includes custom GPIO control functions and a SysTick-based delay method that uses a global tick counter. The LED toggles every 500 milliseconds based on this delay.
